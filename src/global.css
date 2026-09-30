@@ -1,0 +1,118 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.1;
+
+  font-size: inherit;
+  font-weight: inherit;
+
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+
+img,
+picture,
+video,
+canvas,
+svg,
+embed,
+iframe,
+object,
+audio {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+svg[width][height] {
+  max-width: revert;
+}
+
+button {
+  background: none;
+  border: none;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+input,
+button,
+textarea,
+select {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+button,
+[role="button"],
+label,
+summary,
+select {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  font-weight: inherit;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+}
+
+#root {
+  isolation: isolate;
+}
