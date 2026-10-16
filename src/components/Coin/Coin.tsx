@@ -1,4 +1,5 @@
 import css from "./Coin.module.css";
+import type { CSSProperties } from "react";
 
 interface CoinProps {
   frontImgUrl: string;
@@ -8,6 +9,7 @@ interface CoinProps {
   color?: string;
   thickness?: number;
   animationSpeed?: string;
+  shine?: boolean;
 }
 
 const Coin = (props: CoinProps) => {
@@ -19,49 +21,33 @@ const Coin = (props: CoinProps) => {
     thickness = 40,
     color = "rgb(46, 46, 46)",
     animationSpeed = "5s",
+    shine = false,
   } = props;
 
-  const halfThickness = Math.ceil(thickness / 2);
+  const styleVariables = {
+    "--coin-width": `${width}px`,
+    "--coin-height": `${height ?? width}px`,
+    "--coin-speed": animationSpeed,
+    "--coin-thickness": `${thickness}px`,
+    "--coin-color": color,
+  } as CSSProperties;
+
   return (
     <div className={css.wrap}>
       <div
         className={css.coin}
-        style={{
-          width: `${width}px`,
-          height: `${height ?? width}px`,
-          animationDuration: animationSpeed,
-        }}>
-        <div
-          className={css.imgBox}
-          style={{
-            transform: `translateZ(${halfThickness + 1}px)`,
-          }}>
+        style={styleVariables}>
+        <div className={`${css.imgBoxFront} ${shine ? css.imgShine : ""}`}>
           <img
             src={frontImgUrl}
             alt="Coin front"
             className={css.image}
           />
         </div>
-        <div
-          className={css.edge}
-          style={{
-            backgroundColor: color,
-            transform: `translateZ(${halfThickness}px)`,
-          }}></div>
-        <div
-          className={css.center}
-          style={{ backgroundColor: color, width: `${thickness}px` }}></div>
-        <div
-          className={css.edge}
-          style={{
-            backgroundColor: color,
-            transform: `translateZ(-${halfThickness}px)`,
-          }}></div>
-        <div
-          className={css.imgBox}
-          style={{
-            transform: `rotateY(180deg) translateZ(${halfThickness + 1}px)`,
-          }}>
+        <div className={css.edgeFront}></div>
+        <div className={css.center}></div>
+        <div className={css.edgeBack}></div>
+        <div className={`${css.imgBoxBack} ${shine ? css.imgShine : ""}`}>
           <img
             src={backImgUrl ?? frontImgUrl}
             alt="Coin back"

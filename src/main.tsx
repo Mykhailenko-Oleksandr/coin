@@ -6,11 +6,12 @@ import Coin from "./components/Coin/Coin";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Coin
-      frontImgUrl="price.webp"
+      frontImgUrl="coin2.jfif"
+      backImgUrl="coin.png"
       width={400}
-      color="red"
-      thickness={60}
-      animationSpeed="50s"
+      thickness={50}
+      animationSpeed="2s"
+      shine
     />
     {/* <Coin frontImgUrl="coin.png" width={400} color="red" /> */}
   </StrictMode>,
