@@ -11,6 +11,7 @@ interface CoinProps {
   animationSpeed?: string;
   shine?: boolean;
   shadow?: boolean;
+  shadowDistance?: number;
 }
 
 const Coin = (props: CoinProps) => {
@@ -24,6 +25,7 @@ const Coin = (props: CoinProps) => {
     animationSpeed = "5s",
     shine = false,
     shadow = false,
+    shadowDistance = 50,
   } = props;
 
   const styleVariables = {
@@ -32,6 +34,7 @@ const Coin = (props: CoinProps) => {
     "--coin-speed": animationSpeed,
     "--coin-thickness": `${thickness}px`,
     "--coin-color": color,
+    "--shadow-distance": `-${shadowDistance}px`,
   } as CSSProperties;
 
   return (
