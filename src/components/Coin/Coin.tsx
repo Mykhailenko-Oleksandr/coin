@@ -1,5 +1,8 @@
 import css from "./Coin.module.css";
-import type { CSSProperties } from "react";
+import { useMemo, type CSSProperties } from "react";
+import { getEllipseEdgeLayout } from "../../utils/getEllipseEdgeLayout";
+
+export const EDGE_SEGMENT_COUNT = 100;
 
 interface CoinProps {
   frontImgUrl: string;
@@ -40,14 +43,10 @@ const Coin = (props: CoinProps) => {
   const coinHeight = height ?? width;
   const radiusX = width / 2;
   const radiusY = coinHeight / 2;
-
-  // Оцінює довжину еліптичного периметра за формулою Рамануджана
-  const circumference =
-    Math.PI *
-    (3 * (radiusX + radiusY) -
-      Math.sqrt((3 * radiusX + radiusY) * (radiusX + 3 * radiusY)));
-
-  const edgeSegmentCount = 100;
+  const { angles, circumference } = useMemo(
+    () => getEllipseEdgeLayout(radiusX, radiusY),
+    [radiusX, radiusY],
+  );
 
   return (
     <div className={css.wrap}>
@@ -67,9 +66,8 @@ const Coin = (props: CoinProps) => {
         <div
           className={css.edgeSide}
           aria-hidden="true">
-          {Array.from({ length: edgeSegmentCount }, (_, index) => {
-            // Визначає кут позиції поточного сегмента.
-            const angle = (index / edgeSegmentCount) * Math.PI * 2;
+          {angles.map((angle, index) => {
+            // Обчислює координати сегмента на еліптичному контурі.
 
             const x = radiusX * Math.cos(angle);
             const y = radiusY * Math.sin(angle);
@@ -85,7 +83,7 @@ const Coin = (props: CoinProps) => {
                 key={index}
                 className={css.edgeSegment}
                 style={{
-                  width: `${(circumference / edgeSegmentCount) * 1.08}px`,
+                  width: `${(circumference / EDGE_SEGMENT_COUNT) * 1.08}px`,
                   transform: `translate(-50%, -50%) translate3d(${x}px, ${y}px, 0) rotateZ(${tangentAngle}rad) rotateX(90deg)`,
                 }}
               />
