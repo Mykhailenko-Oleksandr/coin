@@ -10,6 +10,7 @@ interface CoinProps {
   thickness?: number;
   animationSpeed?: string;
   shine?: boolean;
+  shadow?: boolean;
 }
 
 const Coin = (props: CoinProps) => {
@@ -22,6 +23,7 @@ const Coin = (props: CoinProps) => {
     color = "rgb(46, 46, 46)",
     animationSpeed = "5s",
     shine = false,
+    shadow = false,
   } = props;
 
   const styleVariables = {
@@ -54,6 +56,7 @@ const Coin = (props: CoinProps) => {
             className={css.image}
           />
         </div>
+        {shadow && <div className={css.shadow}></div>}
       </div>
     </div>
   );

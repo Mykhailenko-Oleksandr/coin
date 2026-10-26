@@ -9,10 +9,10 @@ createRoot(document.getElementById("root")!).render(
       frontImgUrl="coin2.jfif"
       backImgUrl="coin.png"
       width={400}
-      thickness={50}
-      animationSpeed="2s"
+      thickness={40}
+      animationSpeed="5s"
       shine
+      shadow
     />
-    {/* <Coin frontImgUrl="coin.png" width={400} color="red" /> */}
   </StrictMode>,
 );
