@@ -62,7 +62,6 @@
   animation: coin-shine linear infinite;
   animation-duration: var(--coin-speed);
 
-  transform: skewX(-15deg);
   z-index: 1;
 }
 
@@ -145,37 +144,37 @@
 
 @keyframes coin-shine {
   0% {
-    transform: translateX(0);
+    transform: translateX(0) skewX(-15deg);
     opacity: 0.6;
   }
   25% {
-    transform: translateX(-100%);
+    transform: translateX(-100%) skewX(-15deg);
     opacity: 0.4;
   }
   26% {
     opacity: 0;
   }
   30% {
-    transform: translateX(100%);
+    transform: translateX(100%) skewX(-15deg);
     opacity: 0;
   }
   50% {
-    transform: translateX(0);
+    transform: translateX(0) skewX(-15deg);
     opacity: 0.6;
   }
   75% {
-    transform: translateX(-100%);
+    transform: translateX(-100%) skewX(-15deg);
     opacity: 0.4;
   }
   76% {
     opacity: 0;
   }
   80% {
-    transform: translateX(100%);
+    transform: translateX(100%) skewX(-15deg);
     opacity: 0;
   }
   100% {
-    transform: translateX(0);
+    transform: translateX(0) skewX(-15deg);
     opacity: 0.6;
   }
 }
