@@ -37,6 +37,18 @@ const Coin = (props: CoinProps) => {
     "--shadow-distance": `-${shadowDistance}px`,
   } as CSSProperties;
 
+  const coinHeight = height ?? width;
+  const radiusX = width / 2;
+  const radiusY = coinHeight / 2;
+
+  // Оцінює довжину еліптичного периметра за формулою Рамануджана
+  const circumference =
+    Math.PI *
+    (3 * (radiusX + radiusY) -
+      Math.sqrt((3 * radiusX + radiusY) * (radiusX + 3 * radiusY)));
+
+  const edgeSegmentCount = 100;
+
   return (
     <div className={css.wrap}>
       <div
@@ -49,9 +61,40 @@ const Coin = (props: CoinProps) => {
             className={css.image}
           />
         </div>
-        <div className={css.edgeFront}></div>
-        <div className={css.center}></div>
-        <div className={css.edgeBack}></div>
+        <div
+          className={css.edgeFront}
+          aria-hidden="true"></div>
+        <div
+          className={css.edgeSide}
+          aria-hidden="true">
+          {Array.from({ length: edgeSegmentCount }, (_, index) => {
+            // Визначає кут позиції поточного сегмента.
+            const angle = (index / edgeSegmentCount) * Math.PI * 2;
+
+            const x = radiusX * Math.cos(angle);
+            const y = radiusY * Math.sin(angle);
+
+            // Повертає сегмент уздовж дотичної до контуру монети.
+            const tangentAngle = Math.atan2(
+              radiusY * Math.cos(angle),
+              -radiusX * Math.sin(angle),
+            );
+
+            return (
+              <div
+                key={index}
+                className={css.edgeSegment}
+                style={{
+                  width: `${(circumference / edgeSegmentCount) * 1.08}px`,
+                  transform: `translate(-50%, -50%) translate3d(${x}px, ${y}px, 0) rotateZ(${tangentAngle}rad) rotateX(90deg)`,
+                }}
+              />
+            );
+          })}
+        </div>
+        <div
+          className={css.edgeBack}
+          aria-hidden="true"></div>
         <div className={`${css.imgBoxBack} ${shine ? css.imgShine : ""}`}>
           <img
             src={backImgUrl ?? frontImgUrl}

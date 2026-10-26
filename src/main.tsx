@@ -13,6 +13,7 @@ createRoot(document.getElementById("root")!).render(
       animationSpeed="5s"
       shine
       shadow
+      color="rgb(166, 115, 12)"
     />
   </StrictMode>,
 );
