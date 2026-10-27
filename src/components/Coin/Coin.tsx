@@ -1,6 +1,7 @@
 import css from "./Coin.module.css";
 import { useMemo, type CSSProperties } from "react";
-import { getEllipseEdgeLayout } from "../../utils/getEllipseEdgeLayout";
+import getEllipseEdgeLayout from "../../utils/getEllipseEdgeLayout";
+import validatePositiveDimension from "../../utils/validatePositiveDimension";
 
 export const EDGE_SEGMENT_COUNT = 100;
 
@@ -30,6 +31,12 @@ const Coin = (props: CoinProps) => {
     shadow = false,
     shadowDistance = 50,
   } = props;
+
+  validatePositiveDimension("width", width);
+  validatePositiveDimension("thickness", thickness);
+  if (height) {
+    validatePositiveDimension("height", height);
+  }
 
   const styleVariables = {
     "--coin-width": `${width}px`,

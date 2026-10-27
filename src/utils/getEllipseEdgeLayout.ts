@@ -11,7 +11,7 @@ import { EDGE_SEGMENT_COUNT } from "../components/Coin/Coin";
  *   - `circumference`: Загальна довжина (периметр) еліпса.
  */
 
-export const getEllipseEdgeLayout = (radiusX: number, radiusY: number) => {
+export default function getEllipseEdgeLayout(radiusX: number, radiusY: number) {
   // Робимо дуже детальну сітку (2048+ точок), щоб максимально точно виміряти периметр еліпса
   const sampleCount = Math.max(2048, EDGE_SEGMENT_COUNT * 32);
 
@@ -73,4 +73,4 @@ export const getEllipseEdgeLayout = (radiusX: number, radiusY: number) => {
   }
 
   return { angles, circumference };
-};
+}
