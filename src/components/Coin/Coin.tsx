@@ -41,7 +41,7 @@ const Coin = (props: CoinProps) => {
 
   validatePositiveDimension("width", width);
   validatePositiveDimension("thickness", thickness);
-  if (height) {
+  if (height !== undefined) {
     validatePositiveDimension("height", height);
   }
 
