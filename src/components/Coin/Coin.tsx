@@ -16,12 +16,17 @@ interface CoinProps {
   shine?: boolean;
   shadow?: boolean;
   shadowDistance?: number;
+  containerClassName?: string;
+  coinClassName?: string;
+  shadowClassName?: string;
 }
 
 const Coin = (props: CoinProps) => {
   const {
     frontImgUrl,
     backImgUrl,
+    containerClassName,
+    coinClassName,
     detail = "detailed",
     width = 200,
     height,
@@ -30,6 +35,7 @@ const Coin = (props: CoinProps) => {
     animationSpeed = "5s",
     shine = false,
     shadow = false,
+    shadowClassName,
     shadowDistance = 50,
   } = props;
 
@@ -59,9 +65,9 @@ const Coin = (props: CoinProps) => {
   } as CSSProperties;
 
   return (
-    <div className={css.wrap}>
+    <div className={`${css.wrap} ${containerClassName ?? ""}`}>
       <div
-        className={css.coin}
+        className={`${css.coin} ${coinClassName ?? ""}`}
         style={styleVariables}>
         <div className={`${css.imgBoxFront} ${shine ? css.imgShine : ""}`}>
           <img
@@ -110,7 +116,9 @@ const Coin = (props: CoinProps) => {
             className={css.image}
           />
         </div>
-        {shadow && <div className={css.shadow}></div>}
+        {shadow && (
+          <div className={`${css.shadow} ${shadowClassName ?? ""}`}></div>
+        )}
       </div>
     </div>
   );
