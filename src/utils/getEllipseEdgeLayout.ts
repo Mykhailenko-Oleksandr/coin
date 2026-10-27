@@ -1,19 +1,29 @@
-import { EDGE_SEGMENT_COUNT } from "../components/Coin/Coin";
+const EDGE_SEGMENT_SPACING = Math.PI * 2;
+const MIN_EDGE_SEGMENT_COUNT = 24;
+const MAX_EDGE_SEGMENT_COUNT = 160;
+import type { CoinDetailLevel } from "../components/Coin/Coin.types";
 
 /**
- * Обчислює ідеально рівномірний розподіл кутів для сегментів еліптичного ребра
- * та загальну довжину (периметр) еліпса методом чисельного інтегрування.
+ * Розраховує периметр еліпса та рівномірні позиції сегментів його бокового ребра.
+ * Рівномірність визначається відстанню вздовж периметра, а не різницею кутів.
  *
  * @param {number} radiusX - Горизонтальний радіус (півось `X`) еліпса монети.
  * @param {number} radiusY - Вертикальний радіус (півось `Y`) еліпса монети.
- * @returns {{ angles: number[]; circumference: number }} Об'єкт, що містить:
- *   - `angles`: Масив точних кутів у радіанах для кожного сегмента ребра.
- *   - `circumference`: Загальна довжина (периметр) еліпса.
+ * @param {CoinDetailLevel} detail - Рівень деталізації ребра: `detailed` (за замовчуванням)
+ *   або `simplified`, що створює приблизно вдвічі менше сегментів.
+ * @returns {{ angles: number[]; circumference: number; segmentCount: number }} Об'єкт, що містить:
+ *   - `angles`: Кути в радіанах для рівномірного розташування сегментів.
+ *   - `circumference`: Обчислена довжина периметра еліпса.
+ *   - `segmentCount`: Кількість сегментів для вибраного рівня деталізації.
  */
 
-export default function getEllipseEdgeLayout(radiusX: number, radiusY: number) {
+export default function getEllipseEdgeLayout(
+  radiusX: number,
+  radiusY: number,
+  detail: CoinDetailLevel = "detailed",
+) {
   // Робимо дуже детальну сітку (2048+ точок), щоб максимально точно виміряти периметр еліпса
-  const sampleCount = Math.max(2048, EDGE_SEGMENT_COUNT * 32);
+  const sampleCount = 2048;
 
   // Розмір одного мікро-кроку в радіанах
   const angleStep = (Math.PI * 2) / sampleCount;
@@ -45,15 +55,28 @@ export default function getEllipseEdgeLayout(radiusX: number, radiusY: number) {
 
   // Загальна довжина (периметр) еліпса — це останній елемент нашого накопиченого масиву
   const circumference = cumulativeLengths[sampleCount];
+  // Підбираємо кількість сегментів за довжиною периметра та обмежуємо її для продуктивності.
+  const detailedSegmentCount = Math.min(
+    MAX_EDGE_SEGMENT_COUNT,
+    Math.max(
+      MIN_EDGE_SEGMENT_COUNT,
+      Math.round(circumference / EDGE_SEGMENT_SPACING),
+    ),
+  );
+  // У спрощеному режимі зменшуємо кількість сегментів удвічі, але не нижче 12.
+  const segmentCount =
+    detail === "simplified"
+      ? Math.max(12, Math.round(detailedSegmentCount / 2))
+      : detailedSegmentCount;
 
   // Масив, де будуть ідеально вивірені кути для кожного сегмента
   const angles: number[] = [];
   let sampleIndex = 0;
 
   // Розподіляємо наші сегменти так, щоб відстань між ними по периметру була рівною
-  for (let index = 0; index < EDGE_SEGMENT_COUNT; index += 1) {
+  for (let index = 0; index < segmentCount; index += 1) {
     // Цільова відстань від початку монети для поточного сегмента
-    const targetLength = (index / EDGE_SEGMENT_COUNT) * circumference;
+    const targetLength = (index / segmentCount) * circumference;
 
     // Шукаємо в нашій детальній карті довжин найближчу мікро-точку, що перейшла цільову довжину
     while (
@@ -72,5 +95,5 @@ export default function getEllipseEdgeLayout(radiusX: number, radiusY: number) {
     angles.push((sampleIndex + fraction) * angleStep);
   }
 
-  return { angles, circumference };
+  return { angles, circumference, segmentCount };
 }

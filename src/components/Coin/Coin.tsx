@@ -1,13 +1,13 @@
 import css from "./Coin.module.css";
 import { useMemo, type CSSProperties } from "react";
+import type { CoinDetailLevel } from "./Coin.types";
 import getEllipseEdgeLayout from "../../utils/getEllipseEdgeLayout";
 import validatePositiveDimension from "../../utils/validatePositiveDimension";
-
-export const EDGE_SEGMENT_COUNT = 100;
 
 interface CoinProps {
   frontImgUrl: string;
   backImgUrl?: string;
+  detail?: CoinDetailLevel;
   width?: number;
   height?: number;
   color?: string;
@@ -22,6 +22,7 @@ const Coin = (props: CoinProps) => {
   const {
     frontImgUrl,
     backImgUrl,
+    detail = "detailed",
     width = 200,
     height,
     thickness = 40,
@@ -50,9 +51,9 @@ const Coin = (props: CoinProps) => {
   const coinHeight = height ?? width;
   const radiusX = width / 2;
   const radiusY = coinHeight / 2;
-  const { angles, circumference } = useMemo(
-    () => getEllipseEdgeLayout(radiusX, radiusY),
-    [radiusX, radiusY],
+  const { angles, circumference, segmentCount } = useMemo(
+    () => getEllipseEdgeLayout(radiusX, radiusY, detail),
+    [radiusX, radiusY, detail],
   );
 
   return (
@@ -75,7 +76,6 @@ const Coin = (props: CoinProps) => {
           aria-hidden="true">
           {angles.map((angle, index) => {
             // Обчислює координати сегмента на еліптичному контурі.
-
             const x = radiusX * Math.cos(angle);
             const y = radiusY * Math.sin(angle);
 
@@ -90,7 +90,7 @@ const Coin = (props: CoinProps) => {
                 key={index}
                 className={css.edgeSegment}
                 style={{
-                  width: `${(circumference / EDGE_SEGMENT_COUNT) * 1.08}px`,
+                  width: `${(circumference / segmentCount) * 1.08}px`,
                   transform: `translate(-50%, -50%) translate3d(${x}px, ${y}px, 0) rotateZ(${tangentAngle}rad) rotateX(90deg)`,
                 }}
               />

@@ -9,7 +9,7 @@ createRoot(document.getElementById("root")!).render(
       frontImgUrl="coin2.jfif"
       backImgUrl="coin.png"
       width={400}
-      thickness={40}
+      thickness={30}
       animationSpeed="5s"
       shine
       shadow
