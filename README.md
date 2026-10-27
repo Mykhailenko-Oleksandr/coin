@@ -2,7 +2,7 @@
 
 A React and TypeScript project featuring a customizable 3D spinning coin. The coin supports separate front and back images, a beveled edge made of evenly spaced segments, optional shine and shadow effects, and reduced-motion preferences.
 
-**Author:** Oleksandr Mykhailenko  
+**Author:** Oleksandr Mykhailenko · [saniamykhailenko@gmail.com](mailto:saniamykhailenko@gmail.com)  
 **License:** [MIT](./LICENSE)
 
 ## Contents
@@ -27,12 +27,12 @@ Open the local URL printed by Vite in the terminal.
 
 ### Available scripts
 
-| Command | Description |
-| --- | --- |
-| `npm run dev` | Start the Vite development server. |
-| `npm run build` | Type-check the project and create a production build in `dist/`. |
+| Command           | Description                                                         |
+| ----------------- | ------------------------------------------------------------------- |
+| `npm run dev`     | Start the Vite development server.                                  |
+| `npm run build`   | Type-check the project and create a production build in `dist/`.    |
 | `npm run preview` | Preview the production build locally after running `npm run build`. |
-| `npm run lint` | Run ESLint. |
+| `npm run lint`    | Run ESLint.                                                         |
 
 ### Use the Coin component
 
@@ -63,22 +63,22 @@ Pass any image URL that the browser can access, such as an imported asset URL, a
 
 ### Props
 
-| Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| `frontImgUrl` | `string` | Required | URL of the front image. |
-| `backImgUrl` | `string` | `frontImgUrl` | URL of the back image. Falls back to `frontImgUrl`. |
-| `containerClassName` | `string` | `undefined` | Additional CSS class applied to the outer container. The component's base class is preserved. |
-| `coinClassName` | `string` | `undefined` | Additional CSS class applied to the rotating coin element. |
-| `width` | `number` | `200` | Coin width in pixels. |
-| `height` | `number` | `width` | Coin height in pixels. Defaults to a round coin. |
-| `thickness` | `number` | `40` | Coin thickness in pixels. |
-| `color` | `string` | `"rgb(46, 46, 46)"` | Base CSS color used for the coin and its edge. |
-| `animationSpeed` | `string` | `"5s"` | CSS duration for the rotation and shine animation, such as `"3s"` or `"750ms"`. |
-| `detail` | `"detailed" \| "simplified"` | `"detailed"` | Edge detail level. `simplified` renders approximately half as many edge segments. |
-| `shine` | `boolean` | `false` | Enable the animated shine over the coin images. |
-| `shadow` | `boolean` | `false` | Show the shadow beneath the coin. |
-| `shadowClassName` | `string` | `undefined` | Additional CSS class applied to the shadow. |
-| `shadowDistance` | `number` | `50` | Shadow offset in pixels. Used when `shadow` is enabled. |
+| Prop                 | Type                         | Default             | Description                                                                                   |
+| -------------------- | ---------------------------- | ------------------- | --------------------------------------------------------------------------------------------- |
+| `frontImgUrl`        | `string`                     | Required            | URL of the front image.                                                                       |
+| `backImgUrl`         | `string`                     | `frontImgUrl`       | URL of the back image. Falls back to `frontImgUrl`.                                           |
+| `containerClassName` | `string`                     | `undefined`         | Additional CSS class applied to the outer container. The component's base class is preserved. |
+| `coinClassName`      | `string`                     | `undefined`         | Additional CSS class applied to the rotating coin element.                                    |
+| `width`              | `number`                     | `200`               | Coin width in pixels.                                                                         |
+| `height`             | `number`                     | `width`             | Coin height in pixels. Defaults to a round coin.                                              |
+| `thickness`          | `number`                     | `40`                | Coin thickness in pixels.                                                                     |
+| `color`              | `string`                     | `"rgb(46, 46, 46)"` | Base CSS color used for the coin and its edge.                                                |
+| `animationSpeed`     | `string`                     | `"5s"`              | CSS duration for the rotation and shine animation, such as `"3s"` or `"750ms"`.               |
+| `detail`             | `"detailed" \| "simplified"` | `"detailed"`        | Edge detail level. `simplified` renders approximately half as many edge segments.             |
+| `shine`              | `boolean`                    | `false`             | Enable the animated shine over the coin images.                                               |
+| `shadow`             | `boolean`                    | `false`             | Show the shadow beneath the coin.                                                             |
+| `shadowClassName`    | `string`                     | `undefined`         | Additional CSS class applied to the shadow.                                                   |
+| `shadowDistance`     | `number`                     | `50`                | Shadow offset in pixels. Used when `shadow` is enabled.                                       |
 
 The detailed edge uses 24–160 segments depending on the coin perimeter. The simplified edge uses approximately half as many, with a minimum of 12.
 
@@ -125,12 +125,12 @@ npm run dev
 
 ### Доступні команди
 
-| Команда | Опис |
-| --- | --- |
-| `npm run dev` | Запустити сервер розробки Vite. |
-| `npm run build` | Перевірити типи TypeScript і створити production-збірку в `dist/`. |
-| `npm run preview` | Локально переглянути production-збірку після `npm run build`. |
-| `npm run lint` | Запустити ESLint. |
+| Команда           | Опис                                                               |
+| ----------------- | ------------------------------------------------------------------ |
+| `npm run dev`     | Запустити сервер розробки Vite.                                    |
+| `npm run build`   | Перевірити типи TypeScript і створити production-збірку в `dist/`. |
+| `npm run preview` | Локально переглянути production-збірку після `npm run build`.      |
+| `npm run lint`    | Запустити ESLint.                                                  |
 
 ### Використання компонента Coin
 
@@ -161,22 +161,22 @@ export default function App() {
 
 ### Пропси
 
-| Проп | Тип | Значення за замовчуванням | Опис |
-| --- | --- | --- | --- |
-| `frontImgUrl` | `string` | Обов’язковий | URL переднього зображення. |
-| `backImgUrl` | `string` | `frontImgUrl` | URL зображення зворотного боку. Якщо не вказано, використовується `frontImgUrl`. |
-| `containerClassName` | `string` | `undefined` | Додатковий CSS-клас зовнішнього контейнера. Базовий клас компонента зберігається. |
-| `coinClassName` | `string` | `undefined` | Додатковий CSS-клас елемента монети, що обертається. |
-| `width` | `number` | `200` | Ширина монети в пікселях. |
-| `height` | `number` | Значення `width` | Висота монети в пікселях. За замовчуванням монета кругла. |
-| `thickness` | `number` | `40` | Товщина монети в пікселях. |
-| `color` | `string` | `"rgb(46, 46, 46)"` | Базовий CSS-колір монети та її ребра. |
-| `animationSpeed` | `string` | `"5s"` | Тривалість циклу обертання та відблиску у форматі CSS, наприклад `"3s"` або `"750ms"`. |
-| `detail` | `"detailed" \| "simplified"` | `"detailed"` | Деталізація ребра. `simplified` створює приблизно вдвічі менше сегментів. |
-| `shine` | `boolean` | `false` | Увімкнути анімований відблиск на зображеннях монети. |
-| `shadow` | `boolean` | `false` | Показати тінь під монетою. |
-| `shadowClassName` | `string` | `undefined` | Додатковий CSS-клас для тіні. |
-| `shadowDistance` | `number` | `50` | Відстань тіні в пікселях. Використовується, якщо `shadow` увімкнено. |
+| Проп                 | Тип                          | Значення за замовчуванням | Опис                                                                                   |
+| -------------------- | ---------------------------- | ------------------------- | -------------------------------------------------------------------------------------- |
+| `frontImgUrl`        | `string`                     | Обов’язковий              | URL переднього зображення.                                                             |
+| `backImgUrl`         | `string`                     | `frontImgUrl`             | URL зображення зворотного боку. Якщо не вказано, використовується `frontImgUrl`.       |
+| `containerClassName` | `string`                     | `undefined`               | Додатковий CSS-клас зовнішнього контейнера. Базовий клас компонента зберігається.      |
+| `coinClassName`      | `string`                     | `undefined`               | Додатковий CSS-клас елемента монети, що обертається.                                   |
+| `width`              | `number`                     | `200`                     | Ширина монети в пікселях.                                                              |
+| `height`             | `number`                     | Значення `width`          | Висота монети в пікселях. За замовчуванням монета кругла.                              |
+| `thickness`          | `number`                     | `40`                      | Товщина монети в пікселях.                                                             |
+| `color`              | `string`                     | `"rgb(46, 46, 46)"`       | Базовий CSS-колір монети та її ребра.                                                  |
+| `animationSpeed`     | `string`                     | `"5s"`                    | Тривалість циклу обертання та відблиску у форматі CSS, наприклад `"3s"` або `"750ms"`. |
+| `detail`             | `"detailed" \| "simplified"` | `"detailed"`              | Деталізація ребра. `simplified` створює приблизно вдвічі менше сегментів.              |
+| `shine`              | `boolean`                    | `false`                   | Увімкнути анімований відблиск на зображеннях монети.                                   |
+| `shadow`             | `boolean`                    | `false`                   | Показати тінь під монетою.                                                             |
+| `shadowClassName`    | `string`                     | `undefined`               | Додатковий CSS-клас для тіні.                                                          |
+| `shadowDistance`     | `number`                     | `50`                      | Відстань тіні в пікселях. Використовується, якщо `shadow` увімкнено.                   |
 
 Деталізоване ребро використовує від 24 до 160 сегментів залежно від периметра монети. Спрощене — приблизно вдвічі менше, але не менше 12.
 

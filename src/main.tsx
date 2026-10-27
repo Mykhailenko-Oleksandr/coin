@@ -8,14 +8,14 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Coin
       containerClassName={css.wrapCoin}
-      frontImgUrl="coin2.jfif"
-      backImgUrl="coin.png"
-      width={400}
+      frontImgUrl="coinFront.png"
+      backImgUrl="coinBack.png"
+      width={500}
       thickness={30}
       animationSpeed="5s"
       shine
       shadow
-      color="rgb(166, 115, 12)"
+      color="#d39d45"
     />
   </StrictMode>,
 );
