@@ -22,7 +22,6 @@ export default function getEllipseEdgeLayout(
   radiusY: number,
   detail: CoinDetailLevel = "detailed",
 ) {
-  // Робимо дуже детальну сітку (2048+ точок), щоб максимально точно виміряти периметр еліпса
   const sampleCount = 2048;
 
   // Розмір одного мікро-кроку в радіанах
@@ -55,6 +54,7 @@ export default function getEllipseEdgeLayout(
 
   // Загальна довжина (периметр) еліпса — це останній елемент нашого накопиченого масиву
   const circumference = cumulativeLengths[sampleCount];
+
   // Підбираємо кількість сегментів за довжиною периметра та обмежуємо її для продуктивності.
   const detailedSegmentCount = Math.min(
     MAX_EDGE_SEGMENT_COUNT,
@@ -63,6 +63,7 @@ export default function getEllipseEdgeLayout(
       Math.round(circumference / EDGE_SEGMENT_SPACING),
     ),
   );
+
   // У спрощеному режимі зменшуємо кількість сегментів удвічі, але не нижче 12.
   const segmentCount =
     detail === "simplified"

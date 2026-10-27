@@ -39,15 +39,6 @@ const Coin = (props: CoinProps) => {
     validatePositiveDimension("height", height);
   }
 
-  const styleVariables = {
-    "--coin-width": `${width}px`,
-    "--coin-height": `${height ?? width}px`,
-    "--coin-speed": animationSpeed,
-    "--coin-thickness": `${thickness}px`,
-    "--coin-color": color,
-    "--shadow-distance": `-${shadowDistance}px`,
-  } as CSSProperties;
-
   const coinHeight = height ?? width;
   const radiusX = width / 2;
   const radiusY = coinHeight / 2;
@@ -55,6 +46,17 @@ const Coin = (props: CoinProps) => {
     () => getEllipseEdgeLayout(radiusX, radiusY, detail),
     [radiusX, radiusY, detail],
   );
+  const edgeWidth = (circumference / segmentCount) * 1.08;
+
+  const styleVariables = {
+    "--coin-width": `${width}px`,
+    "--coin-height": `${height ?? width}px`,
+    "--coin-speed": animationSpeed,
+    "--coin-thickness": `${thickness}px`,
+    "--coin-color": color,
+    "--shadow-distance": `-${shadowDistance}px`,
+    "--edge-width": `${edgeWidth}px`,
+  } as CSSProperties;
 
   return (
     <div className={css.wrap}>
@@ -75,11 +77,9 @@ const Coin = (props: CoinProps) => {
           className={css.edgeSide}
           aria-hidden="true">
           {angles.map((angle, index) => {
-            // Обчислює координати сегмента на еліптичному контурі.
             const x = radiusX * Math.cos(angle);
             const y = radiusY * Math.sin(angle);
 
-            // Повертає сегмент уздовж дотичної до контуру монети.
             const tangentAngle = Math.atan2(
               radiusY * Math.cos(angle),
               -radiusX * Math.sin(angle),
@@ -89,10 +89,13 @@ const Coin = (props: CoinProps) => {
               <div
                 key={index}
                 className={css.edgeSegment}
-                style={{
-                  width: `${(circumference / segmentCount) * 1.08}px`,
-                  transform: `translate(-50%, -50%) translate3d(${x}px, ${y}px, 0) rotateZ(${tangentAngle}rad) rotateX(90deg)`,
-                }}
+                style={
+                  {
+                    "--edge-x": `${x}px`,
+                    "--edge-y": `${y}px`,
+                    "--edge-angle": `${tangentAngle}rad`,
+                  } as CSSProperties
+                }
               />
             );
           })}

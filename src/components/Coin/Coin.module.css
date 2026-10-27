@@ -97,7 +97,9 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  width: var(--edge-width);
   height: var(--coin-thickness);
+
   background-color: var(--coin-color);
   background-image: linear-gradient(
     to right,
@@ -107,7 +109,9 @@
     var(--coin-color) 76%,
     rgba(255, 255, 255, 0.2)
   );
-  /* transform: translate(-50% -50%) rotateX(90deg); */
+
+  transform: translate(-50%, -50%) translate3d(var(--edge-x), var(--edge-y), 0)
+    rotateZ(var(--edge-angle)) rotateX(90deg);
   backface-visibility: visible;
 }
 
