@@ -1,6 +1,6 @@
 :where(.wrap) {
-  width: var(--coin-width);
-  height: var(--coin-height);
+  width: 100%;
+  height: 100%;
   perspective: 3000px;
 }
 
@@ -10,6 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
 
   width: var(--coin-width);
   height: var(--coin-height);
@@ -18,6 +19,11 @@
 
   animation: coin-idle linear infinite;
   animation-duration: var(--coin-speed);
+}
+
+.coin[data-round="true"] {
+  height: auto;
+  aspect-ratio: 1 / 1;
 }
 
 .imgBoxFront,

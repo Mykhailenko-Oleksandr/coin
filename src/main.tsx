@@ -8,9 +8,9 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Coin
       containerClassName={css.wrapCoin}
+      coinClassName={css.coin}
       frontImgUrl="coinFront.png"
       backImgUrl="coinBack.png"
-      width={500}
       thickness={30}
       animationSpeed="5s"
       shine

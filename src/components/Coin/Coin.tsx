@@ -1,5 +1,11 @@
 import css from "./Coin.module.css";
-import { useMemo, type CSSProperties } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
 import type { CoinDetailLevel } from "./Coin.types";
 import getEllipseEdgeLayout from "../../utils/getEllipseEdgeLayout";
 import validatePositiveDimension from "../../utils/validatePositiveDimension";
@@ -45,9 +51,39 @@ const Coin = (props: CoinProps) => {
     validatePositiveDimension("height", height);
   }
 
-  const coinHeight = height ?? width;
-  const radiusX = width / 2;
-  const radiusY = coinHeight / 2;
+  const coinRef = useRef<HTMLDivElement>(null);
+  const [renderedSize, setRenderedSize] = useState({
+    width,
+    height: height ?? width,
+  });
+
+  useEffect(() => {
+    const coinElement = coinRef.current;
+    if (!coinElement) return;
+
+    const observer = new ResizeObserver(([entry]) => {
+      const actualWidth = entry.contentRect.width;
+
+      const actualHeight =
+        height === undefined ? actualWidth : entry.contentRect.height;
+
+      setRenderedSize((current) => {
+        if (
+          Math.abs(current.width - actualWidth) < 0.01 &&
+          Math.abs(current.height - actualHeight) < 0.01
+        ) {
+          return current;
+        }
+        return { width: actualWidth, height: actualHeight };
+      });
+    });
+
+    observer.observe(coinElement);
+    return () => observer.disconnect();
+  }, [height]);
+
+  const radiusX = renderedSize.width / 2;
+  const radiusY = renderedSize.height / 2;
   const { angles, circumference, segmentCount } = useMemo(
     () => getEllipseEdgeLayout(radiusX, radiusY, detail),
     [radiusX, radiusY, detail],
@@ -67,7 +103,9 @@ const Coin = (props: CoinProps) => {
   return (
     <div className={`${css.wrap} ${containerClassName ?? ""}`}>
       <div
+        ref={coinRef}
         className={`${css.coin} ${coinClassName ?? ""}`}
+        data-round={height === undefined ? "true" : undefined}
         style={styleVariables}>
         <div className={`${css.imgBoxFront} ${shine ? css.imgShine : ""}`}>
           <img
